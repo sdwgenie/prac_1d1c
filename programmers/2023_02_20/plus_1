@@ -1,10 +1,10 @@
-def solution(num1, num2):
+def solution(num1, num2) :
     
     tot = num1 + num2
     
     return tot
     
-def solution2(num1, num2):
+def solution2(num1, num2) :
     
     return num1 + num2
     
