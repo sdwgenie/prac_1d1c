@@ -1,0 +1,4 @@
+def solution(num1, num2):
+    tot = int(num1 / num2 * 1000)
+    
+    return tot
