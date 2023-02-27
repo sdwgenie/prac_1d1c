@@ -1,0 +1,12 @@
+from collections import Counter
+
+def solution(array) :
+    counter = Counter(array)
+    count = counter.most_common(n=2)
+
+    if len(count) >= 2 and count[-1][-1] == count[-2][-1] 
+        return -1
+    
+    else :
+        return count[0][0]
+       
