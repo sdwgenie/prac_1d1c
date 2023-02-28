@@ -1,0 +1,11 @@
+def solution(n):
+    i = 1
+    
+    while True :
+        if 7*i // n > 0:
+            break
+                
+        else:
+            i += 1
+            
+    return i
