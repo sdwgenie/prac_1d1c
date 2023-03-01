@@ -6,3 +6,7 @@ def solution(num_list):
         answer.append(ele)
         
     return answer
+
+def solution2(num_list) :
+
+    return num_list[::-1]
