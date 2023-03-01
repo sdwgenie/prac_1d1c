@@ -1,0 +1,26 @@
+def solution(arr) :
+    answer = []
+    arr = arr[::-1]
+    
+    answer.append(arr.pop())
+    
+    while arr :
+        ele = arr.pop()
+        
+        if ele == answer[-1]:
+            continue
+            
+        else :
+            answer.append(ele)
+            
+    return answer
+    
+def no_continuous(s) :
+    a = []
+    
+    for i in s :
+        if a[-1:] == [i]: continue
+        
+        a.append(i)
+        
+    return a
