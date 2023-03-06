@@ -1,0 +1,19 @@
+def solution(num_list) :
+    even, odd, cnt = [], [], []
+    while num_list :
+        check = num_list.pop()
+        if check % 2 == 0 :
+            even.append(check)
+            
+        else :
+            odd.append(check)
+            
+    cnt.append([len(even), len(odd)])
+    
+    return cnt[0]
+    
+def solution2(num_list):
+    answer = [0,0]
+    for n in num_list:
+        answer[n%2]+=1
+    return answer
