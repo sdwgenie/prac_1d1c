@@ -1,0 +1,10 @@
+def solution(numbers):
+    answer = []
+    while numbers:
+        number = numbers.pop(0)
+        
+        for i in numbers :
+            answer.append(number+i)
+            
+    answer = sorted(list(set(answer)))
+    return answer
