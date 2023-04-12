@@ -1,0 +1,88 @@
+def solution(park, routes) :
+    answer = []
+    start_pos = []
+
+    for i in range(len(park)) :
+        if park[i].find("S") != -1 :
+            start_pos.append(i)
+            start_pos.append(park[i].find("S"))
+            break
+
+    for i in routes :
+        end_pos_x = start_pos[1]
+        end_pos_y = start_pos[0]
+
+        if i[0] == "E" :
+            for _ in range(int(i[-1])) :
+                end_pos_x += 1
+
+                if end_pos_x < len(park[0]) :
+                    if park[end_pos_y][end_pos_x] != "X" :
+                        continue
+
+                    else :
+                        end_pos_x = start_pos[1]
+                        break
+                        
+                else :
+                    end_pos_x = start_pos[1]
+                    break
+
+            start_pos[1] = end_pos_x
+
+        elif i[0] == "S" :
+            for _ in range(int(i[-1])) :
+                end_pos_y += 1
+
+                if end_pos_y < len(park) :
+                    if park[end_pos_y][end_pos_x] != "X" :
+                        continue
+
+                    else :
+                        end_pos_y = start_pos[0]
+                        break
+                        
+                else :
+                    end_pos_y = start_pos[0]
+                    break
+
+            start_pos[0] = end_pos_y
+
+        elif i[0] == "W" :
+            for _ in range(int(i[-1])) :
+                end_pos_x -= 1
+
+                if end_pos_x >= 0 :
+                    if park[end_pos_y][end_pos_x] != "X" :
+                        continue
+
+                    else :
+                        end_pos_x = start_pos[1]
+                        break
+                        
+                else :
+                    end_pos_x = start_pos[1]
+                    break
+
+            start_pos[1] = end_pos_x
+
+        elif i[0] == "N" :
+            for _ in range(int(i[-1])) :
+                end_pos_y -= 1
+
+                if end_pos_y >= 0 :
+                    if park[end_pos_y][end_pos_x] != "X" :
+                        continue
+
+                    else :
+                        end_pos_y = start_pos[0]
+                        break
+                        
+                else :
+                    end_pos_y = start_pos[0]
+                    break
+                
+
+            start_pos[0] = end_pos_y
+        
+    return start_pos
