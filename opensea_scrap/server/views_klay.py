@@ -49,7 +49,8 @@ def line_chart(request):
     marketcapdict = {'volume' : volume_marketcap, 'floor_price' : floor_price_marketcap, 'date' : date, 'vol_mar_avg' : vol_mar_avg, 'flo_mar_avg' : flo_mar_avg, 'mainnet': 'Eth'}
     marketcapjson = json.dumps(marketcapdict)
     return render(request, 'line_chart.html', {'marketcapjson' : marketcapjson, 'time' : time, 'mainnet': 'Ethereum' })
-### Volume Daily Histogram 
+    
+### Daily Volume Histogram
 def v_histo(request):
     mark = ENft24H.objects.filter(ranking__range=(1,100)).values('volume')
     volume = []
@@ -78,6 +79,7 @@ def v_histo(request):
     volumejson = json.dumps(volumedict)
     return render(request, 'v_histo.html', {'volumejson' : volumejson, 'mainnet': 'Ethereum'})
 
+### Daily Floor Price Histogram
 def f_histo(request):
     mark = ENft24H.objects.filter(ranking__range=(1,100)).values('floor_price')
     floor_price = []
@@ -111,6 +113,7 @@ def f_histo(request):
     floor_pricejson = json.dumps(floor_pricedict)
     return render(request, 'f_histo.html', {'floor_pricejson' : floor_pricejson, 'mainnet': 'Ethereum'})
 
+### Daily Volume Box Graph During 7 Days
 def v_box(request):
     mark = ENftmarketcap.objects.order_by('-id').values('date_field')[:10]
     date = []
@@ -218,6 +221,7 @@ def v_box(request):
     boxjson = json.dumps(boxdict)
     return render(request, 'v_box.html', {'boxjson' : boxjson, 'mainnet': 'Ethereum'})
 
+### Daily Floor Price Box Graph During 7 Days
 def f_box(request):
     mark = ENftmarketcap.objects.order_by('-id').values('date_field')[:10]
     date = []
@@ -308,6 +312,7 @@ def f_box(request):
     boxjson = json.dumps(boxdict)
     return render(request, 'f_box.html', {'boxjson' : boxjson, 'mainnet': 'Ethereum'})
 
+### Daily Volume Pie Chart
 def v_pie(request):
     mark = ENft24H.objects.filter(ranking__range=(1,100)).values('collection', 'volume')
     volume = ENftmarketcap.objects.order_by('-id').values('volume_total')[0]
@@ -346,6 +351,7 @@ def v_pie(request):
     piejson = json.dumps(piedict)
     return render(request, 'v_pie.html', {'piejson' : piejson, 'mainnet': 'Ethereum'})
 
+### Daily Floor Price Pie Chart
 def f_pie(request):
     mark = ENft24H.objects.filter(ranking__range=(1,100)).values('collection', 'floor_price')
     pri = []
@@ -414,6 +420,7 @@ def f_pie(request):
     piejson = json.dumps(piedict)
     return render(request, 'f_pie.html', {'piejson' : piejson, 'mainnet': 'Ethereum'})
 
+### Daily Increase / Decrease Ratio
 def change(request):
     mark = ENft24H.objects.filter(ranking__range=(1,100)).values('change_field')
     cnt = 0
@@ -430,6 +437,7 @@ def change(request):
     changejson = json.dumps(changedict)
     return render(request, 'change.html', {'changejson' : changejson, 'mainnet': 'Ethereum'})
 
+### Volume Marketcap
 def v_mark(request):
     ti = "'e_nftmarketcap'"
     conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
@@ -462,6 +470,7 @@ def v_mark(request):
     marketcapjson = json.dumps(marketcapdict)
     return render(request, 'v_mark.html', {'marketcapjson' : marketcapjson, 'time' : time, 'mainnet': 'Ethereum'})
 
+### Floor Price Marketcap
 def f_mark(request):
     mark = ENftmarketcap.objects.values()
     std_flo_mar = ENftmarketcap.objects.filter(id=1).values('floor_price_marketcap')[0]['floor_price_marketcap']
