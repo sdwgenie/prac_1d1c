@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="{% static 'css/histo.css' %}">
+</head>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description" style = 'text-align:center'>
+		{{mainnet}}을 기반으로 한 NFT의 Daily Volume 분포
+    </p>
+ </figure>
+
+<script>
+var volume = JSON.parse("{{ volumejson|escapejs }}");
+    
+Highcharts.chart('container', {
+	title: {
+		text: 'Daily Volume Histogram'
+	},
+	legend: {
+		enabled: false
+	},
+    credits: {
+      enabled: false
+    },
+	xAxis: [{
+		title: { text: '' }
+	}, {
+		title: { text: 'Volume' },
+	}],
+	yAxis: [{
+		title: { text: '' }
+	}, {
+		title: { text: 'Count' },
+	}],
+    plotOptions: {
+    histogram: {
+      binWidth: volume['gap']
+    }},
+	series: [{
+		name: 'Count',
+		type: 'histogram',
+		xAxis: 1,
+		yAxis: 1,
+		baseSeries: 's1',
+		zIndex: -1
+	}, {
+		name: 'Data',
+		type: 'scatter',
+		data: volume['volume'],
+		id: 's1',
+		marker: {
+			radius: 1.5
+		},
+		visible: false
+	}]
+});
+</script>

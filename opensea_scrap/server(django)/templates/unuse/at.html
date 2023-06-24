@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="{% static "css/style.css" %}?after">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+      <div class="header_wrap">
+        <div class="num_rows" style = 'width : 7%'>
+          <div class="form-group"> 	<!--		Show Numbers Of Rows 		-->
+            <select class  ="form-control" name="state" id="maxRows">
+              <!-- <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>-->
+              <option value="50">50</option>
+              <!-- <option value="70">70</option>-->
+              <option value="100">100</option>
+              <option value="5000">All</option>
+            </select>
+          </div>
+        </div>  
+        <div class = 'coin' style = 'width : 15%; float: right'>
+          <form action = "" name = 'frm2' method = 'POST'>
+            {% csrf_token %}
+            <select class = 'form-control' name = 'coin' onchange = "this.form.submit()">
+              <option value = 'AC' {% if coin == 'AC logo' %} selected {% endif %}> All Mainnet </option>
+              <option value = 'ETH' {% if coin == 'ETH logo' %} selected {% endif %}> ETH </option>
+              <option value = 'POLY' {% if coin == 'POLY logo' %} selected {% endif %}> POLYGON </option>
+              <option value = 'KLAY' {% if coin == 'KLAY logo' %} selected {% endif %}> KLAY </option>
+              <option value = 'SOL' {% if coin == 'SOL logo' %} selected {% endif %}> SOL </option>
+            </select>
+          </form>
+        </div>      
+        <div class = 'duration' style = 'width : 15%; float: right'>
+          <form action = "" name = 'frm'>
+            <select class = 'form-control' name = 'time' onchange = 'location=document.frm.time.value'>
+              <option value = 'at'> All Time </option>
+              <option value = '24h'> One Day </option>
+              <option value = '7d'> One Week </option>
+              <option value = '30d'> One month </option>
+            </select>
+          </form>
+        </div>
+        
+<!---        <div class="tb_search">
+<input type="text" id="search_input_all" onkeyup="FilterkeyWord_all_table()" placeholder="Search.." class="form-control">
+        </div> -->
+      </div>
+      
+<table class="table table-striped table-class" id= "table-id" style ="margin-bottom:5px;">
+
+	
+<thead>
+  <tr style="font-size:20px;">
+    <th style = 'width : 5%'></th>
+    <th style = "padding-right:150px; width :25%">Collection</th>
+    <th style = 'width : 15%'>Volume</th>
+    <th style = 'width : 8%'>24H %</th>
+    <th style = 'width : 8%'>7D %</th>
+    <th style = 'width : 12%'>Floor Price</th>
+    <th style = 'width : 10%'>Owners</th>
+    <th style = 'width : 10%'>Items</th>
+  </tr>
+</thead>
+<tbody>
+  {% for nft in set %}
+    {% if nft.collection %}
+      <tr style = "cursor:pointer;" onClick = " location.href='{{nft.link}}' " onMouseOver = " indow.status = '{{nft.link}}' " onMouseOut = " window.status = '' " >
+        <td style = "vertical-align:middle"><img src ={{nft.image}} height="70" width = "70"></td>
+        <td style = "text-align:left; vertical-align:middle;">{{nft.collection}}</a></td>
+        {% if nft.coin == 'ETH logo' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/eth.svg' %}" height="14" width = "14"> {{nft.volume}}</td>
+        {% elif nft.coin == 'POLY logo' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/poly.svg' %}" height="14" width = "14"> {{nft.volume}}</td>
+        {% elif nft.coin == 'KLAY logo'%}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/klay.png' %}" height="14" width = "14"> {{nft.volume}}</td>
+        {% elif nft.coin == 'SOL logo' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/sol.svg' %}" height="14" width = "14"> {{nft.volume}}</td>
+        {% else %}
+          <td style = "vertical-align:middle;">{{nft.volume}}</td>
+        {% endif %}
+        {% if nft.number_24h == '---' %}
+          <td style = "vertical-align:middle;">{{nft.number_24h}}</td>
+        {% elif nft.number_24h|slice:"0:1" == '-' %}
+          <td style = "color:red; vertical-align:middle;">{{nft.number_24h}}</td>
+        {% elif nft.number_24h|slice:"0:1" == '+' %}
+          <td style = "color:green; vertical-align:middle;">{{nft.number_24h}}</td>
+        {% else %}
+          <td style = 'vertical-align:middle;'>{{nft.number_24h}}</td>
+        {% endif %}
+        {% if nft.number_7dh == '---' %}
+          <td style = "vertical-align:middle;">{{nft.number_7dh}}</td>
+        {% elif nft.number_7dh|slice:"0:1" == '-' %}
+          <td style = "color:red; vertical-align:middle;">{{nft.number_7dh}}</td>
+        {% elif nft.number_7dh|slice:"0:1" == '+' %}
+          <td style = "color:green; vertical-align:middle;">{{nft.number_7dh}}</td>
+        {% endif %}
+        {% if nft.coin == 'ETH logo' and nft.floor_price != '---' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/eth.svg' %}" height="14" width = "14"> {{nft.floor_price}}</td>
+        {% elif nft.coin == 'POLY logo' and nft.floor_price != '---' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/poly.svg' %}" height="14" width = "14"> {{nft.floor_price}}</td>
+        {% elif nft.coin == 'KLAY logo' and nft.floor_price != '---' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/klay.png' %}" height="14" width = "14"> {{nft.floor_price}}</td>
+        {% elif nft.coin == 'SOL logo' and nft.floor_price != '---' %}
+          <td style = "vertical-align:middle;"><img src = "{% static '/img/sol.svg' %}" height="14" width = "14"> {{nft.floor_price}}</td>
+        {% else %}
+          <td style = "vertical-align:middle;">{{nft.floor_price}}</td>
+        {% endif %}
+        <td style = "vertical-align:middle;">{{nft.owners}}</td>
+        <td style = "vertical-align:middle;">{{nft.items}}</td>
+      </tr>
+    {% else %}
+    {% endif %}
+  {% endfor %}
+  <caption class="made_by">BIZMETA NFT R&D Lab.</caption>
+</tbody>
+</table>
+
+<!--		Start Pagination -->
+			<div class='pagination-container'>
+				<nav>
+				  <ul class="pagination">
+				   <!--	Here the JS Function Will Add the Rows -->
+				  </ul>
+				</nav>
+			</div>
+      <div class="rows_count">Showing 11 to 20 of 91 entries</div>
+</div> <!-- 		End of Container -->
+
+
+
+<!--  Developed By Yasser Mas -->
+<!-- partial -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src="{% static "js/script.js" %}?after"></script>
+
+</body>
+</html>

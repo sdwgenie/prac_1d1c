@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="{% static 'css/line.css' %}">
+</head>
+<p style = 'text-align:right'> Updated : {{ time }} <br><br><br></p>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description" style = 'text-align:center'>
+      {{mainnet}}을 기반으로 한 NFT Marketcap지수
+    </p>
+ </figure>
+
+<script>
+var marketcap = JSON.parse("{{ marketcapjson|escapejs }}");
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
+});
+
+Highcharts.chart('container', {
+  chart: {
+    type: 'line'
+  },
+  title: {
+    text: 'Volume & Floor Price Marketcap (Klaytn Mainnet)'
+  },
+  credits: {
+      enabled: false
+  },
+//   subtitle: {
+//     text: 'Source: WorldClimate.com'
+//   },
+  xAxis: {
+    categories: marketcap['date']
+  },
+  yAxis: {
+    title: {
+      text: 'Marketcap'
+    },
+    plotLines: [{
+    value: marketcap['vol_mar_avg'],
+    color: 'red',
+    width: 2,
+    label: {
+      text: 'Volume Marketcap Mean',
+      align: 'left',
+      style: {
+        color: 'gray'
+      }
+    }
+    },{
+    value: marketcap['flo_mar_avg'],
+    color: 'red',
+    width: 2,
+    label: {
+      text: 'Floor Price Marketcap Mean',
+      align: 'left',
+      style: {
+        color: 'gray'
+      }
+    }
+    }]
+  },
+  plotOptions: {
+    line: {
+      dataLabels: {
+        enabled: true
+      },
+      enableMouseTracking: true
+    }
+  },
+  series: [{
+    name: 'Volume Marketcap',
+    data: marketcap['volume']
+  }, {
+    name: 'Floor Price Marketcap',
+    data: marketcap['floor_price']
+  }]
+});
+</script>

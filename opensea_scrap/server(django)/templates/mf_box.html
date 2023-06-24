@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+    <!-- <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'css/box.css' %}"> -->
+</head>
+
+<div id="container"></div>
+<p class="highcharts-description" style = 'text-align:center'>
+  {{mainnet}}을 기반으로 한 NFT의<br>날짜별 Floor Price 분포
+</p>
+
+<script>
+var box = JSON.parse("{{ boxjson|escapejs }}")
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
+});
+
+Highcharts.chart('container', {
+
+chart: {
+  type: 'boxplot'
+},
+
+title: {
+  text: 'Floor Price Box Plot'
+},
+
+credits: {
+      enabled: false
+  },
+
+legend: {
+  enabled: false
+},
+
+xAxis: {
+  categories: box['date'],
+},
+
+yAxis: {
+  title: {
+    text: box['mainnet']
+  },
+},
+
+series: [{
+  name: 'Floor Price',
+  data: box['box'],
+  tooltip: {
+    headerFormat: '<em>Floor Price {point.key}</em><br/>'
+  }
+}, {
+  name: 'Floor Price',
+  color: Highcharts.getOptions().colors[0],
+  type: 'scatter',
+  data: box['volume'],
+  marker: {
+    fillColor: 'white',
+    lineWidth: 1,
+    lineColor: Highcharts.getOptions().colors[0]
+  },
+  tooltip: {
+    pointFormat: box['mainnet'] + '{point.y}'
+  }
+}]
+
+});
+</script>

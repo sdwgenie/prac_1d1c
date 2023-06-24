@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="{% static 'css/pie.css' %}">
+</head>
+
+<figure class="highcharts-figure">
+  <div id="container"></div>
+  <p class="highcharts-description" style = 'text-align:center'>
+    {{mainnet}}을 기반으로 한 NFT 중 상위 10개의 Daily Volume 비율
+  </p>
+</figure>
+
+<script>
+var pie = JSON.parse("{{ piejson|escapejs }}");
+
+Highcharts.setOptions({
+     colors: ['#87ceeb', '#696969', '#3cb371', '#f4a460', '#6a5acd', '#ff69b4', '#ff7f50', '#008b8b', '#a52a2a', '#00ffff', '#bc8f8f']
+    });
+
+Highcharts.chart('container', {
+  chart: {
+    height : 470,
+    type: 'pie'
+  },
+  title: {
+    text: 'Daily Volume Top 10 and ETC'
+  },
+  credits: {
+      enabled: false
+  },
+
+  accessibility: {
+    announceNewData: {
+      enabled: true
+    },
+    point: {
+      valueSuffix: '%'
+    }
+  },
+
+  plotOptions: {
+    pie: {
+      size : 350
+    },
+    series: {
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}: {point.y:.1f}%',
+        style :{
+          width: '180px'
+        }
+      }
+    }
+  },
+
+  tooltip: {
+    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+  },
+
+  series: [
+    {
+      name: "Volume",
+      colorByPoint: true,
+      data: [
+        {
+          name: pie['1']['collection'],
+          y: pie['1']['per'],
+          drilldown: pie['1']['collection']
+        },
+        {
+          name: pie['2']['collection'],
+          y: pie['2']['per'],
+          drilldown: pie['2']['collection']
+        },
+        {
+          name: pie['3']['collection'],
+          y: pie['3']['per'],
+          drilldown: pie['3']['collection']
+        },
+        {
+          name: pie['4']['collection'],
+          y: pie['4']['per'],
+          drilldown: pie['4']['collection']
+        },
+        {
+          name: pie['5']['collection'],
+          y: pie['5']['per'],
+          drilldown: pie['5']['collection']
+        },
+        {
+          name: pie['6']['collection'],
+          y: pie['6']['per'],
+          drilldown: pie['6']['collection']
+        },
+        {
+          name: pie['7']['collection'],
+          y: pie['7']['per'],
+          drilldown: pie['7']['collection']
+        },
+        {
+          name: pie['8']['collection'],
+          y: pie['8']['per'],
+          drilldown: pie['8']['collection']
+        },
+        {
+          name: pie['9']['collection'],
+          y: pie['9']['per'],
+          drilldown: pie['9']['collection']
+        },
+        {
+          name: pie['10']['collection'],
+          y: pie['10']['per'],
+          drilldown: pie['10']['collection']
+        },
+        {
+          name: pie['etc']['collection'],
+          y: pie['etc']['per'],
+          drilldown: pie['etc']['collection'],
+        },
+ 
+      ]
+    }
+  ],
+});
+</script>

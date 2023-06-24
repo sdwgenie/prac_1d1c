@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+
+<head>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+  <script src="https://code.highcharts.com/stock/highcharts-more.js"></script>
+  <!-- <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script> -->
+  <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+</head>
+
+<div id="container"></div>
+<p class="highcharts-description" style = 'text-align:center'>
+  {{mainnet}}을 기반으로 한 NFT Floor Price Marketcap지수
+</p>
+
+
+<script>
+// Notice that the dataset has missing data
+const marketcap = JSON.parse("{{marketcapjson|escapejs}}")
+
+Highcharts.stockChart('container', {
+
+  chart: {
+    type: 'columnrange'
+  },
+
+  credits: {
+      enabled: false
+  },
+
+  rangeSelector: {
+    selected: 0
+  },
+
+  title: {
+    text: 'Floor Price Marketcap'
+  },
+
+  tooltip: {
+    pointFormatter: function() {
+      return 'open : <b>' + this.low + '</b><br>close : <b>' + this.high + '</b>';
+      },
+  },
+
+  series: [{
+    name: 'Floor Price Marketcap',
+    // keys: ['x','low','high'],
+    data: marketcap.marketcap.map(row => [row.timestamp, row.open, row.close]),
+  }]
+
+});
+</script>

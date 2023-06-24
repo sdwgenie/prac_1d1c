@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="{% static 'css/pie.css' %}">
+</head>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description" style = 'text-align:center'>
+      {{mainnet}}을 기반으로 한 NFT의 24시간 동안 증감 비율
+    </p>
+</figure>
+
+<script>
+var percent = JSON.parse("{{ changejson|escapejs }}")
+
+Highcharts.setOptions({
+     colors: ['#008000', '#ff0000']
+    });
+
+
+Highcharts.chart('container', {
+  chart: {
+    marginTop: -80,
+    marginBottom: -80,
+    marginLeft: 0,
+    marginRight: 0,
+    height : 400,
+    type: 'pie',
+    plotBackgroundColor: null,
+    plotBorderWidth: 0,
+    plotShadow: false
+  },
+  credits: {
+      enabled: false
+  },
+  title: {
+    text: 'Volume<br>Change<br>During 24H',
+    align: 'center',
+    verticalAlign: 'middle',
+    y: 100
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+  },
+  accessibility: {
+    point: {
+      valueSuffix: '%'
+    }
+  },
+  plotOptions: {
+    pie: {
+      dataLabels: {
+        enabled: true,
+        distance: -50,
+        style: {
+          fontWeight: 'bold',
+          color: 'white'
+        }
+      },
+      startAngle: -90,
+      endAngle: 90,
+      center: ['50%', '75%'],
+      size: '110%'
+    }
+  },
+  series: [{
+    type: 'pie',
+    name: 'ratio',
+    innerSize: '50%',
+    data: [
+      ['Inc : ' + (percent['inc']) + '%', percent['inc']],
+      ['Dec', percent['dec']],
+    ]
+  }]
+});
+</script>

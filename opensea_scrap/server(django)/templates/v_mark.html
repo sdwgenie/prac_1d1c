@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+
+<head>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+  <script src="https://code.highcharts.com/stock/highcharts-more.js"></script>
+  <!-- <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script> -->
+  <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+</head>
+
+<p style = 'text-align:right'> Updated : {{ time }} <br><br><br></p>
+<div id="container"></div>
+<p class="highcharts-description" style = 'text-align:center'>
+  {{mainnet}}을 기반으로 한 NFT Volume Marketcap지수
+</p>
+
+<script>
+// Notice that the dataset has missing data
+const marketcap = JSON.parse("{{marketcapjson|escapejs}}");
+
+Highcharts.stockChart('container', {
+  
+  // plotOptions: {
+  //           columnrange: {
+  //               colorByPoint: true,
+  //           }
+  //       },
+
+  chart: {
+    type: 'columnrange'
+  },
+
+  credits: {
+      enabled: false
+  },
+
+  rangeSelector: {
+    selected: 0
+  },
+
+  title: {
+    text: 'Volume Marketcap'
+  },
+
+  tooltip: {
+    pointFormatter: function() {
+      return 'open : <b>' + this.low + '</b><br>close : <b>' + this.high + '</b>';
+      },
+  },
+
+  series: [{
+    name: 'Volume Marketcap',
+    data: marketcap.marketcap.map(row => [row.timestamp, row.open, row.close, row.color]),
+  }]
+
+});
+</script>

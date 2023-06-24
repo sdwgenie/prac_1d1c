@@ -1,0 +1,63 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+<div id="container"></div>
+<p class="highcharts-description" style = "text-align: center;">
+  {{mainnet}}을 기반으로 한 NFT 중<br>상위 10개의 Daily Volume 비율
+</p>
+
+<script>
+var bar = JSON.parse("{{ barjson|escapejs }}")
+
+Highcharts.chart('container', {
+  chart: {
+    type: 'column',
+    inverted : true,
+    height: 450,
+  },
+  title: {
+    text: 'Volume<br>Top 10 and ETC'
+  },
+  credits: {
+      enabled: false
+  },
+  xAxis: {
+    type: 'category',
+    labels: {
+      style: {
+        fontSize: '13px',
+        fontFamily: 'Verdana, sans-serif'
+      }
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: '% ratio'
+    }
+  },
+  legend: {
+    enabled: false
+  },
+  tooltip: {
+    pointFormat: 'Daily Volume Ratio: <b>{point.y:.1f}%</b>'
+  },
+  series: [{
+    name: 'Volume',
+    data: bar['bar'],
+    dataLabels: {
+      enabled: true,
+      color: '#FFFFFF',
+      align: 'right',
+      format: '{point.y:.2f}%', // one decimal
+      style: {
+        fontSize: '13px',
+        fontFamily: 'Verdana, sans-serif'
+      }
+    }
+  }]
+});
+</script>

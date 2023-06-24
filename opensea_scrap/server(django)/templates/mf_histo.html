@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" >
+{% load static %}
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'css/histo.css' %}"> -->
+</head>
+
+
+<div id="container"></div>
+<p class="highcharts-description" style = 'text-align:center'>
+    {{mainnet}}을 기반으로 한 NFT의<br>Daily Floor Price 분포
+</p>
+
+<script>
+var floor_price = JSON.parse("{{ floor_pricejson|escapejs }}");
+    
+Highcharts.chart('container', {
+	title: {
+		text: 'Daily Floor Price Histogram'
+	},
+	legend: {
+		enabled: false
+	},
+    credits: {
+      enabled: false
+    },
+	xAxis: [{
+		title: { text: '' }
+	}, {
+		title: { text: 'Floor Price' },
+	}],
+	yAxis: [{
+		title: { text: '' }
+	}, {
+		title: { text: 'Count' },
+	}],
+    plotOptions: {
+    histogram: {
+      binWidth: floor_price['gap']
+    }},
+	series: [{
+		name: 'Count',
+		type: 'histogram',
+		xAxis: 1,
+		yAxis: 1,
+		baseSeries: 's1',
+		zIndex: -1
+	}, {
+		name: 'Data',
+		type: 'scatter',
+		data: floor_price['floor_price'],
+		id: 's1',
+		marker: {
+			radius: 1.5
+		},
+		visible: false
+	}]
+});
+</script>
