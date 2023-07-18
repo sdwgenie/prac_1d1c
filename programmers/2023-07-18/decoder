@@ -1,0 +1,25 @@
+morse = { 
+    '.-':'a','-...':'b','-.-.':'c','-..':'d','.':'e','..-.':'f',
+    '--.':'g','....':'h','..':'i','.---':'j','-.-':'k','.-..':'l',
+    '--':'m','-.':'n','---':'o','.--.':'p','--.-':'q','.-.':'r',
+    '...':'s','-':'t','..-':'u','...-':'v','.--':'w','-..-':'x',
+    '-.--':'y','--..':'z'
+}
+
+def solution(letter):
+    letter_split = letter.split(' ')
+    answer = ''
+
+    while letter_split :
+        find_key = morse[letter_split.pop(0)]
+        answer += find_key
+
+    return answer
+
+def solution2(letter):
+
+    return ''.join([morse[i] for i in letter.split(' ')])
+      
+def solution3(letter):
+
+    return "".join(map(lambda w: morse[w], letter.split()))
