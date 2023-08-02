@@ -1,0 +1,13 @@
+from functools import reduce
+import mathn
+
+def solution(balls, share):
+    num = reduce(lambda x, y : x * y, range(balls, balls - share, -1))
+    denom = reduce(lambda x, y : x * y, range(share, 0, -1))
+    answer = num / denom
+    
+    return answer
+
+def solution(balls, share):
+
+    return math.comb(balls, share)
