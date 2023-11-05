@@ -1,0 +1,11 @@
+## type 확인
+## 생각하는 max min 사용법은 실수에서
+## map(함수, 리스트)
+
+def solution(s):
+    num = ''
+    s_list = list(map(int, s.split(' ')))
+
+    return str(min(s_list)) + ' ' + str(max(s_list))
+
+
