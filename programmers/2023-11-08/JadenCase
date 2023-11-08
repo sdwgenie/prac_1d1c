@@ -1,3 +1,5 @@
+## 공백이 몇개인가를 잘 처리하는것이 중요
+
 def solution(s):
     s = s.lower()
     answer = ''
