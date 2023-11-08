@@ -16,3 +16,16 @@ def solution(s):
             answer += s[i]
         
     return answer
+
+def solution(s):
+    re_s = []
+
+    for i in s.lower().split(' '):
+        if i != '' and ord('a') <= ord(i[0]) <= ord('z'):
+            re_s.append(i[0].upper() + i[1:])
+
+        else:
+            re_s.append(i)
+
+    return ' '.join(re_s)
+            
