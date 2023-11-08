@@ -1,0 +1,16 @@
+def solution(s):
+    s = s.lower()
+    answer = ''
+    
+    for i in range(len(s)):
+        if i == 0:
+            if s[i-1] != ' ' :
+                s = s + ' '
+        
+        if ord('a') <= ord(s[i]) <= ord('z') and s[i-1] == ' ':
+            answer += s[i].upper()
+        
+        else:
+            answer += s[i]
+        
+    return answer
