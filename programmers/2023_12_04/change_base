@@ -1,0 +1,29 @@
+## 필요한 요소가 정확히 무엇인지 특정지어 간소화
+
+def solution(s):
+    answer = []
+    cnt_zero, cnt_trans = 0, 0
+    s_len = len(s)
+    
+    while s != '1':
+        s = s.replace('0', '')
+        cnt_zero += s_len - len(s)
+        s = str(format(len(s), 'b'))
+        
+        s_len = len(s)
+        cnt_trans += 1
+    
+    answer.extend([cont_trans, cnt_zero])
+    
+    return answer
+
+def solution(s):
+    a, b = 0, 0
+  
+    while s != '1':
+        a += 1
+        num = s.count('1')
+        b += len(s) - num
+        s = bin(num)[2:]
+  
+    return [a, b]
