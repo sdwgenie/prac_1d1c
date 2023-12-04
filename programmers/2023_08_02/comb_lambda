@@ -1,5 +1,5 @@
 from functools import reduce
-import mathn
+import math
 
 def solution(balls, share):
     num = reduce(lambda x, y : x * y, range(balls, balls - share, -1))
