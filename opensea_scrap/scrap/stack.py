@@ -5,7 +5,7 @@ nft = ['nft_24h', 'nft_7d', 'nft_30d', 'nft_at']
 side = ['a_', 'e_', 'k_', 'p_', 's_', 'ar_', 'av_', 'o_', 'b_']
 stack = '_stack'
 
-conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
 cursor = conn.cursor()
 
 for tot in range(36):
