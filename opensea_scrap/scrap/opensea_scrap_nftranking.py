@@ -219,7 +219,7 @@ for tot in range(36):
                     pass
 
             ### 정보 DB 저장
-            conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8mb4')
+            conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8mb4')
             cursor = conn.cursor()
 
             ### 당일 데이터 초기화
@@ -328,7 +328,7 @@ for tot in range(36):
 
         ### 오류 발생시 리셋 후 데이터 입력
         except:
-            conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8mb4')
+            conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8mb4')
             cursor = conn.cursor()
             
             sql = '''UPDATE %s\n''' % (side[no_w] + nft[now])
