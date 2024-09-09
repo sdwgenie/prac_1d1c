@@ -34,7 +34,7 @@ for tot in range(2):
     now = tot // 5
     no_w = tot % 5
 
-    conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+    conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
 
     cursor = conn.cursor()
 
@@ -186,7 +186,7 @@ for tot in range(2):
                     except:
                         pass
                 
-                conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+                conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
                 cursor = conn.cursor()
                 
                 sql = '''UPDATE %s\n''' % (side[no_w] + nft[now])
@@ -247,7 +247,7 @@ for tot in range(2):
                 conn.close()
                     
             except:
-                conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+                conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
                 cursor = conn.cursor()
 
                 sql = '''UPDATE %s\n''' % (side[no_w] + nft[now])
