@@ -14,7 +14,7 @@ from .models import *
 ### Volume, Floor Price marketcap 라인 그래프
 def line_chart(request):
     ti = "'e_nftmarketcap'"
-    conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+    conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
     cursor = conn.cursor()
 
     cursor.execute('SELECT UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE table_name=%s' % (ti))
@@ -440,7 +440,7 @@ def change(request):
 ### Volume Marketcap
 def v_mark(request):
     ti = "'e_nftmarketcap'"
-    conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+    conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
     cursor = conn.cursor()
 
     cursor.execute('SELECT UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE table_name=%s' % (ti))
@@ -497,7 +497,7 @@ def f_mark(request):
 ### Mobile 반응형
 def mline_chart(request):
     ti = "'e_nftmarketcap'"
-    conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+    conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
     cursor = conn.cursor()
 
     cursor.execute('SELECT UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE table_name=%s' % (ti))
@@ -997,7 +997,7 @@ def mf_bar(request):
 
 def mv_mark(request):
     ti = "'e_nftmarketcap'"
-    conn = pymysql.connect(host = 'localhost', user = 'bizmeta', password = 'bmeta2044!!', db = 'bizmeta', charset = 'utf8')
+    conn = pymysql.connect(host = 'localhost', user = 'id', password = 'pass', db = 'id', charset = 'utf8')
     cursor = conn.cursor()
 
     cursor.execute('SELECT UPDATE_TIME FROM INFORMATION_SCHEMA.TABLES WHERE table_name=%s' % (ti))
